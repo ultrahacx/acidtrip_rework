@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+		<script src="nui://game/ui/jquery.js" type="text/javascript"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.1.1/howler.min.js" type="text/javascript"></script>
+	</head>
+
+	<body>
+		<script>
+			var audioLink = "https://github.com/ultrahacx/acidtrip_rework/blob/main/acidtrip/html/";
+			var audioFile;
+			
+			function DoMusic(song){
+				var audioscr;
+				if (song == 1){
+					audioFile = "audio1.mp3?raw=true"
+				}
+				else{
+					audioFile = "audio2.mp3?raw=true"
+				}
+				finalLink = audioLink+audioFile
+				audioPlayer = new Howl({src: [finalLink]});
+				audioPlayer.volume(0.6)
+				audioPlayer.play();
+			}
+			
+			$(function() {
+			  window.addEventListener('message', function(event) {
+				if (event.data.type == "playMusic") {
+				  DoMusic(event.data.song);
+				} else if (event.data.type == "stopMusic") {
+				  audioPlayer.pause();
+				}
+			  });
+			});
+		</script>
+	</body>
+</html>
